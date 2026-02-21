@@ -1,0 +1,49 @@
+---
+const { title } = Astro.props;
+---
+
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header>
+      <h1>
+        <a href="/" class="site-title">Hasibiroのブログ</a>
+      </h1>
+      <nav>
+        <a href="/about">About</a>
+        <a href="/article">Article</a>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <small>
+        © {new Date().getFullYear()} Hasibiro
+      </small>
+    </footer>
+  </body>
+  <style>
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    header a {
+      text-decoration: none;
+      color: black;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    nav a:visited {
+      color: black;
+    }
+  </style>
+</html>
