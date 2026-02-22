@@ -2,19 +2,33 @@
 import MainLayout from "../layouts/BaseLayout.astro";
 ---
 
-<MainLayout title="Home">
-    <h1>このサイトについて</h1>
-    <p>
-        はしびろがAstroの学習のために作ったブログです。更新やUIの改善はぼちぼちやります。
-    </p>
-    <h2>自己紹介</h2>
-    <p>春から大学生です。</p>
+<MainLayout title="About">
+    <section>
+        <h1>このサイトについて</h1>
+        <p>
+            このブログは、はしびろがAstroの学習を兼ねて制作している個人ブログです。
+            技術の記録や気づいたことなどを、ゆるく発信しています。
+        </p>
+    </section>
 
-    <h3>好きなもの</h3>
-    <ul>
-        <li>数学（特に、微積分と複素数）</li>
-        <li>英単語の語源調べ</li>
-        <li>プログラミング（ReactとAstroとRust）</li>
-        <li>ソシャゲ（最近はエンドフィールドだけ）</li>
-    </ul>
+    <section>
+        <h2>このブログで書くこと</h2>
+        <ul>
+            <li>アプリ開発の記録</li>
+            <li>新しく触った技術のメモ</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>自己紹介</h2>
+        <p>春から大学生になります。理系分野とプログラミングが好きです。</p>
+
+        <h3>好きなもの</h3>
+        <ul>
+            <li>数学（特に微積分・複素数）</li>
+            <li>英単語の語源を調べること</li>
+            <li>プログラミング（React / Astro / Rust）</li>
+            <li>ソーシャルゲーム（最近はエンドフィールド）</li>
+        </ul>
+    </section>
 </MainLayout>

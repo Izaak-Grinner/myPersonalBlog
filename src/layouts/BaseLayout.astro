@@ -5,45 +5,117 @@ const { title } = Astro.props;
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
   </head>
   <body>
-    <header>
-      <h1>
-        <a href="/" class="site-title">Hasibiroのブログ</a>
-      </h1>
-      <nav>
-        <a href="/about">About</a>
-        <a href="/article">Article</a>
-      </nav>
+    <header class="header">
+      <div class="header-container">
+        <h1 class="site-title">
+          <a href="/">Hasibiroのブログ</a>
+        </h1>
+        <nav class="nav">
+          <a href="/about" class="nav-link">About</a>
+          <a href="/article" class="nav-link">Article</a>
+        </nav>
+      </div>
     </header>
 
-    <main>
+    <main class="main-content">
       <slot />
     </main>
 
-    <footer>
-      <small>
-        © {new Date().getFullYear()} Hasibiro
-      </small>
+    <footer class="footer">
+      <small>© {new Date().getFullYear()} Hasibiro</small>
     </footer>
   </body>
   <style>
-    ul {
-      list-style: none;
-      padding-left: 0;
+    :root {
+      --max-width: 1200px;
+      --padding: 1rem;
+      --bg-color: #ffffff;
+      --text-color: #333333;
+      --border-color: #e0e0e0;
+      --hover-color: #f5f5f5;
     }
 
-    header a {
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .header {
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      sticky: top;
+    }
+
+    .header-container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: var(--padding);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .site-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .site-title a {
       text-decoration: none;
-      color: black;
-    }
-    nav a:hover {
-      text-decoration: underline;
+      color: var(--text-color);
+      transition: opacity 0.3s eas;
     }
 
-    nav a:visited {
-      color: black;
+    .site-title a:hover {
+      opacity: 0.7;
+    }
+
+    .nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 500;
+      transition: all 0.3s ease;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid transparent;
+    }
+
+    .nav-link:hover {
+      border-bottom-color: var(--text-color);
+    }
+
+    .main-content {
+      max-width: var(--max-width);
+      margin: 2rem auto;
+      padding: var(--padding);
+      min-height: calc(100vh - 200px);
+    }
+
+    .footer {
+      background-color: var(--bg-color);
+      border-top: 1px solid var(--border-color);
+      padding: 2rem var(--padding);
+      text-align: center;
+      margin-top: 2rem;
+      color: #666666;
     }
   </style>
 </html>

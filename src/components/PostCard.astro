@@ -1,0 +1,59 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { formatDate } from "../utils/convertDate";
+
+type Props = {
+    post: CollectionEntry<"article">;
+    variant?: "default" | "compact";
+};
+
+const { post, variant = "default" } = Astro.props as Props;
+---
+
+<article class={`post-card ${variant}`}>
+    <h3 class="post-title">
+        <a href={`/article/${post.slug}`}>
+            {post.data.title}
+        </a>
+    </h3>
+
+    <time class="post-date" datetime={post.data.date.toISOString()}>
+        {formatDate(post.data.date)}
+    </time>
+
+    {
+        variant !== "compact" && (
+            <p class="post-excerpt">{post.data.description}</p>
+        )
+    }
+
+    <a href={`/article/${post.slug}`} class="read-more"> 続きを読む → </a>
+</article>
+
+<style>
+    .post-card {
+        padding: 1.5rem;
+        border: 1px solid #e5e5e5;
+        border-radius: 12px;
+        transition: all 0.2s ease;
+    }
+
+    .post-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    /* compact版（Home用） */
+    .post-card.compact {
+        padding: 1rem;
+    }
+
+    .post-card.compact .post-excerpt {
+        display: none;
+    }
+
+    .post-date {
+        font-size: 0.9rem;
+        color: #666;
+    }
+</style>

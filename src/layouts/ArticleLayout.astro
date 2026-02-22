@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import type { CollectionEntry } from "astro:content";
-import { convertDateToYYMMDD } from "../utils/convertDate";
+import { formatDate } from "../utils/convertDate";
 
 type Props = {
   post: CollectionEntry<"article">;
@@ -12,8 +12,28 @@ const { post } = Astro.props as Props;
 
 <BaseLayout title={post.data.title}>
   <article>
-    <h1>{post.data.title}</h1>
-    <p>{convertDateToYYMMDD(post.data.date)}</p>
-    <slot />
+    <header>
+      <h1>{post.data.title}</h1>
+
+      <p>
+        <time datetime={post.data.date.toISOString()}>
+          {formatDate(post.data.date)}
+        </time>
+      </p>
+
+      {
+        post.data.tags.length > 0 && (
+          <ul>
+            {post.data.tags.map((tag) => (
+              <li>{tag}</li>
+            ))}
+          </ul>
+        )
+      }
+    </header>
+
+    <section>
+      <slot />
+    </section>
   </article>
 </BaseLayout>

@@ -1,25 +1,21 @@
 ---
-import MainLayout from "../../layouts/BaseLayout.astro";
-
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
-import { convertDateToYYMMDD } from "../../utils/convertDate";
+import PostCard from "../../components/PostCard.astro";
 
 const posts = (await getCollection("article")).sort(
-    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+    (a, b) => b.data.date.getTime() - a.data.date.getTime(),
 );
 ---
 
-<MainLayout title="Article">
-    <h1>記事一覧</h1>
+<BaseLayout title="Articles">
+    <section class="post-list">
+        <h1>記事一覧</h1>
 
-    <ul>
-        {
-            posts.map((post) => (
-                <li>
-                    <a href={`/article/${post.slug}`}>{post.data.title}</a>
-                    <span>{convertDateToYYMMDD(post.data.date)}</span>
-                </li>
-            ))
-        }
-    </ul>
-</MainLayout>
+        <div class="grid">
+            {posts.map((post) => <PostCard post={post} />)}
+        </div>
+    </section>
+</BaseLayout>
+
+<style></style>

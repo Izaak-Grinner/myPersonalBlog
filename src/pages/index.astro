@@ -1,14 +1,79 @@
 ---
-import MainLayout from "../layouts/BaseLayout.astro";
-
+import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
-import { convertDateToYYMMDD } from "../utils/convertDate";
+import PostCard from "../components/PostCard.astro";
 
-const posts = (await getCollection("article")).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-);
+const posts = (await getCollection("article"))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 5); // 最新5件を取得
 ---
 
-<MainLayout title="Home">
-  <h1>ホーム</h1>
-</MainLayout>
+<BaseLayout title="Home">
+  <div class="home-container">
+    <!-- ヒーローセクション -->
+    <section class="hero">
+      <h1>Hasibiroのブログ</h1>
+      <p>技術と日常をつづるブログです</p>
+    </section>
+
+    <!-- 最新記事セクション -->
+    <section class="recent-posts">
+      <h2>最新の記事</h2>
+      <div class="grid">
+        {posts.map((post) => <PostCard post={post} variant="compact" />)}
+      </div>
+    </section>
+
+    <section class="view-all">
+      <button class="btn-primary">
+        <a href="/article/">→ すべての記事を見る</a>
+      </button>
+    </section>
+  </div>
+
+  <style>
+    .home-container {
+      width: 100%;
+    }
+
+    /* ヒーロー */
+    .hero {
+      text-align: center;
+      padding: 3rem 0;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 3rem;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: #666666;
+    }
+
+    /* ボタン */
+    .view-all {
+      text-align: center;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--text-color);
+      color: var(--bg-color);
+      padding: 0.8rem 2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.8;
+      transform: translateY(-2px);
+    }
+  </style>
+</BaseLayout>
