@@ -26,8 +26,6 @@ const { post, variant = "default" } = Astro.props as Props;
             <p class="post-excerpt">{post.data.description}</p>
         )
     }
-
-    <a href={`/article/${post.slug}`} class="read-more"> 続きを読む → </a>
 </article>
 
 <style>
